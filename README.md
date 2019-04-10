@@ -1,6 +1,6 @@
 # Render-Matic 9000
 
-![renderer screen capture](https://github.com/internally-combusted/portfolio/blob/master/render-matic/renderer%20output%20example.png?raw=true)
+![renderer screen capture](https://github.com/internally-combusted/render-matic/blob/master/renderer%20output%20example.png?raw=true)
 
 A renderer I've written using [`gfx_hal`](https://github.com/gfx-rs/gfx), a cross-platform library for [Rust](https://www.rust-lang.org) that more or less wraps the [Vulkan](https://www.khronos.org/vulkan/) API for low-level graphics programming. 
 
