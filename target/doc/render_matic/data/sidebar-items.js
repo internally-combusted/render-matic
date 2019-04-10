@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Author","Data for a single author."],["DataManager","Owner for all game data."],["GameData","Metadata related to the game itself as a program."],["GameMap","A map containing tile and event data."],["Program",""]]});

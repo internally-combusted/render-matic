@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ResourceManager","Central repository (but not direct owner) of media resources."]]});

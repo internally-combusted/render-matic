@@ -1,0 +1,10 @@
+(function() {var implementors = {};
+implementors["render_matic"] = [{text:"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html\" title=\"trait core::marker::Copy\">Copy</a> for <a class=\"struct\" href=\"render_matic/geometry/struct.VertexData.html\" title=\"struct render_matic::geometry::VertexData\">VertexData</a>",synthetic:false,types:["render_matic::geometry::VertexData"]},{text:"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html\" title=\"trait core::marker::Copy\">Copy</a> for <a class=\"struct\" href=\"render_matic/render/struct.FormattedVertexData.html\" title=\"struct render_matic::render::FormattedVertexData\">FormattedVertexData</a>",synthetic:false,types:["render_matic::render::FormattedVertexData"]},{text:"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html\" title=\"trait core::marker::Copy\">Copy</a> for <a class=\"struct\" href=\"render_matic/serial/struct.Position3D.html\" title=\"struct render_matic::serial::Position3D\">Position3D</a>",synthetic:false,types:["render_matic::serial::Position3D"]},{text:"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html\" title=\"trait core::marker::Copy\">Copy</a> for <a class=\"struct\" href=\"render_matic/serial/struct.Size.html\" title=\"struct render_matic::serial::Size\">Size</a>",synthetic:false,types:["render_matic::serial::Size"]},{text:"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html\" title=\"trait core::marker::Copy\">Copy</a> for <a class=\"struct\" href=\"render_matic/serial/struct.Color.html\" title=\"struct render_matic::serial::Color\">Color</a>",synthetic:false,types:["render_matic::serial::Color"]},];
+
+            if (window.register_implementors) {
+                window.register_implementors(implementors);
+            } else {
+                window.pending_implementors = implementors;
+            }
+        
+})()

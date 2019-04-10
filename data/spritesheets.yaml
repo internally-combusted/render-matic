@@ -1,0 +1,13 @@
+---
+- index: 0
+  pitch: 3
+  position:
+    x: 0
+    y: 0
+  size:
+    x: 48
+    y: 16
+  frame_size:
+    x: 16
+    y: 16
+...

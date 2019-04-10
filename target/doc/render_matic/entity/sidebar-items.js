@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EntityType",""]],"struct":[["Entity","An entity is just a bundle of components."],["EntityManager","The owner for all entities. Handles creation, access, and deletion."]]});

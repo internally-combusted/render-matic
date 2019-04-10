@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["calculate_frame","Returns the current frame for a simple looping animation."],["elapsed_as_millis","Returns the time elapsed in milliseconds since the given Instant."]],"struct":[["EPOCH",""],["Profiler","A quick thing for calculating FPS sort of. There's almost certainly a better option for this."]]});

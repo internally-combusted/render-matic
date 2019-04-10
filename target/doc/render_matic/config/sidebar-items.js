@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Configuration","Global game configuration."],["Graphics","Graphics-related configuration."],["Window",""]]});

@@ -1,0 +1,8 @@
+---
+- index: 0
+  name: Test Map 00000001
+  entities: [0, 1]
+  size:
+    x: 1280
+    y: 640
+...

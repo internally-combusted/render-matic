@@ -1,0 +1,11 @@
+---
+counter: 2
+
+entities:
+  - id: 0
+    entity_type: Background
+    components: [1]
+  - id: 1
+    entity_type: Sprite
+    components: [0]
+...

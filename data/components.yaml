@@ -1,0 +1,80 @@
+---
+counter: 5
+
+components:
+  - id: 0
+    component_type: Animation2D
+    component_data:
+      Animation2D:
+        texture_index: 1
+        spritesheet_index: 0
+        layer: 0
+        current_animation: 0
+        animations:
+          - frames: [0, 1, 2]
+            animation_type: Loop
+            frame_length: 1000
+        transform_data:
+          translation: [-400.0, 0.0]
+          scaling: [500.0, 5.0]
+          rotation: -1.14
+  - id: 1
+    component_type: Animation2D
+    component_data:
+      Animation2D:
+        texture_index: 1
+        spritesheet_index: 0
+        layer: 0
+        current_animation: 0
+        animations:
+          - frames: [1, 2, 0]
+            animation_type: Loop
+            frame_length: 1000
+        transform_data:
+          translation: [400.0, 0.0]
+          scaling: [200.0, 170.0]
+          rotation: 17.0
+  - id: 2
+    component_type: Animation2D
+    component_data:
+      Animation2D:
+        texture_index: 1
+        spritesheet_index: 0
+        layer: 0
+        current_animation: 0
+        animations:
+          - frames: [0, 1, 2]
+            animation_type: Loop
+            frame_length: 1000
+        transform_data:
+          translation: [0.0, -300.0]
+          scaling: [10.0, 100.0]
+          rotation: 4.0
+  - id: 3
+    component_type: Animation2D
+    component_data:
+      Animation2D:
+        texture_index: 1
+        spritesheet_index: 0
+        layer: 0
+        current_animation: 0
+        animations:
+          - frames: [2, 1, 0, 1, 2]
+            animation_type: Loop
+            frame_length: 1000
+        transform_data:
+          translation: [0.0, 300.0]
+          scaling: [100.0, 100.0]
+          rotation: 7.333                              
+  - id: 4
+    component_type: Quad
+    component_data:
+      Quad:
+        texture_index: 0
+        layer: 1
+        transform_data:
+          translation: [0.0, 0.0]
+          scaling: [1280.0, 640.0]
+          rotation: 0.0
+        uv_offset: [0.0, 0.0]
+...

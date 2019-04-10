@@ -1,0 +1,7 @@
+---
+graphics:
+  window:
+    size:
+      x: 1280
+      y: 640
+...

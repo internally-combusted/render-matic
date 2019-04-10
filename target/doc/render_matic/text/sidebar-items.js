@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["render_text","Renders the given static text component to a texture."]],"struct":[["GameFont",""]]});

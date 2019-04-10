@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["total_texture_size",""]],"struct":[["Texture","Owns texture data and handles Vulkan-related constructs like `Image`s and `ImageView`s."]]});

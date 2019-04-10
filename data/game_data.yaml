@@ -1,0 +1,9 @@
+---
+program:
+  name: Render-Matic 9000
+  version: 0.0.000000001
+
+authors:
+  - name: Ryan McGowan
+    email: ryan@internally-combusted.net
+...

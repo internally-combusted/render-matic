@@ -1,0 +1,16 @@
+---
+textures:
+  - index: 0
+    size:
+      x: 1280
+      y: 640
+    file: ./data/resources/art/background_atlas.png
+  - index: 1
+    size: 
+      x: 48
+      y: 16
+    file: ./data/resources/art/sprite_atlas.png
+fonts:
+  - index: 0
+    file: ./data/resources/fonts/Inconsolata-Regular.ttf
+...
