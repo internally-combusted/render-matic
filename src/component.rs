@@ -23,12 +23,13 @@ use nalgebra_glm::Mat3;
 use serde::{Deserialize, Serialize};
 use serde_yaml;
 use std::{fs, time::Instant};
+use winit::VirtualKeyCode;
 
 use crate::{
     draw::Animation,
     entity::EntityManager,
     error::Error,
-    geometry::{Transform2D, TransformData},
+    geometry::{Movement2D, Transform2D, TransformData},
     serial::{Index, Position2D},
 };
 
@@ -81,6 +82,7 @@ pub enum ComponentData {
         #[serde(default = "std::time::Instant::now", skip)]
         /// When the current animation began, used to calculate which frame in the current animation to use.
         start_time: Instant,
+        movement: Movement2D,
     },
     /// A plain textured quad.
     Quad {
@@ -272,5 +274,52 @@ impl ComponentManager {
             index += 1;
         }
         Err(Error::Index())
+    }
+}
+
+pub trait ReceiveInput {
+    fn keyboard_response(&mut self, keycode: VirtualKeyCode) -> Result<(), Error>;
+}
+
+impl ReceiveInput for Component {
+    fn keyboard_response(&mut self, keycode: VirtualKeyCode) -> Result<(), Error> {
+        if let ComponentData::Animation2D {
+            movement,
+            transform_data,
+            ..
+        } = &mut self.component_data
+        {
+            match keycode {
+                VirtualKeyCode::Right => {
+                    transform_data.translation[0] += movement.delta_translate[0];
+                    transform_data.translation[1] += movement.delta_translate[1];
+                    transform_data.rotation += movement.delta_rotation;
+                    transform_data.scaling[0] += movement.delta_scale[0];
+                    transform_data.scaling[1] += movement.delta_scale[1];
+                    return Ok(());
+                }
+                VirtualKeyCode::Left => {
+                    transform_data.translation[0] -= movement.delta_translate[0];
+                    transform_data.translation[1] -= movement.delta_translate[1];
+                    transform_data.rotation -= movement.delta_rotation;
+                    transform_data.scaling[0] -= movement.delta_scale[0];
+                    transform_data.scaling[1] -= movement.delta_scale[1];
+                    return Ok(());
+                }
+                _ => {
+                    return Ok(());
+                }
+            }
+        }
+        Ok(())
+    }
+}
+
+impl ReceiveInput for ComponentManager {
+    fn keyboard_response(&mut self, keycode: VirtualKeyCode) -> Result<(), Error> {
+        for component in &mut self.components {
+            component.keyboard_response(keycode).unwrap();
+        }
+        Ok(())
     }
 }

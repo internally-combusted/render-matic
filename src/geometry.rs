@@ -103,3 +103,10 @@ pub trait Transform2D {
         self.translation_matrix() * self.rotation_matrix() * self.scaling_matrix()
     }
 }
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct Movement2D {
+    pub delta_rotation: f32,
+    pub delta_scale: Vec<f32>,
+    pub delta_translate: Vec<f32>,
+}

@@ -22,10 +22,10 @@ use winit::{
     dpi::LogicalSize, Event, EventsLoop, KeyboardInput, VirtualKeyCode, WindowBuilder, WindowEvent,
 };
 
-use crate::config::Configuration;
-use crate::data::DataManager;
-use crate::draw::DrawingSystem;
-use crate::error::Error;
+use crate::{
+    component::ReceiveInput, config::Configuration, data::DataManager, draw::DrawingSystem,
+    error::Error,
+};
 
 /*
     CREDITS
@@ -65,7 +65,11 @@ fn main() -> Result<(), Error> {
         .with_dimensions(LogicalSize::new(width, height))
         .build(&event_loop)?;
 
-    let mut drawing_system = DrawingSystem::new(&game_window, &mut data)?;
+    let mut drawing_system = DrawingSystem::new(
+        &game_window,
+        &data.game_data.program.name,
+        &mut data.resource_manager,
+    )?;
 
     // Game loop.
     loop {
@@ -84,6 +88,30 @@ fn main() -> Result<(), Error> {
                             },
                         ..
                     } => quitting = true,
+                    WindowEvent::KeyboardInput {
+                        input:
+                            KeyboardInput {
+                                virtual_keycode: Some(VirtualKeyCode::Right),
+                                ..
+                            },
+                        ..
+                    } => {
+                        data.component_manager
+                            .keyboard_response(VirtualKeyCode::Right)
+                            .unwrap();
+                    }
+                    WindowEvent::KeyboardInput {
+                        input:
+                            KeyboardInput {
+                                virtual_keycode: Some(VirtualKeyCode::Left),
+                                ..
+                            },
+                        ..
+                    } => {
+                        data.component_manager
+                            .keyboard_response(VirtualKeyCode::Left)
+                            .unwrap();
+                    }
                     _ => {}
                 }
             }
@@ -93,7 +121,7 @@ fn main() -> Result<(), Error> {
             break;
         }
 
-        drawing_system.draw_frame();
+        drawing_system.draw_frame(&data);
     }
 
     drawing_system.clean_up()?;

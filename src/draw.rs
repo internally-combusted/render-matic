@@ -9,11 +9,12 @@ use serde::{Deserialize, Serialize};
 use winit::Window;
 
 use crate::{
-    component::{ComponentData, ComponentManager, ComponentType},
+    component::{ComponentData, ComponentType},
     data::DataManager,
     error::Error,
     geometry::{self, Transform2D, VertexData},
     render::{FormattedVertexData, Renderer},
+    resource::ResourceManager,
     serial::{Color, Index, Position2D, Position3D, Size},
     time,
 };
@@ -53,35 +54,34 @@ pub struct Background {
 }
 
 /// Performs all drawing operations.
-pub struct DrawingSystem<'a> {
-    component_manager: &'a ComponentManager,
-    data_manager: &'a DataManager<'a>,
+pub struct DrawingSystem {
     renderer: Renderer,
 }
 
-impl<'a> DrawingSystem<'a> {
-    pub fn new(window: &'a Window, data_manager: &'a mut DataManager) -> Result<Self, Error> {
-        let component_manager = &data_manager.component_manager;
-        let renderer = Renderer::new(
-            &data_manager.game_data.program.name,
-            window,
-            &mut data_manager.resource_manager,
-        )?;
-        Ok(Self {
-            component_manager,
-            renderer,
-            data_manager,
-        })
+impl DrawingSystem {
+    pub fn new<'a>(
+        window: &'a Window,
+        name: &str,
+        resource_manager: &mut ResourceManager,
+    ) -> Result<Self, Error> {
+        let renderer = Renderer::new(name, window, resource_manager)?;
+        Ok(DrawingSystem { renderer })
     }
 
     /// Collects all Components of the given type and returns a `Vec` of `VertexData`
     /// giving all the vertex information needed to render the components.
-    fn get_vertex_data_for_type(&self, component_type: ComponentType) -> Vec<Vec<VertexData>> {
-        self.component_manager
+    fn get_vertex_data_for_type(
+        &self,
+        component_type: ComponentType,
+        data_manager: &DataManager,
+    ) -> Vec<Vec<VertexData>> {
+        data_manager
+            .component_manager
             .get_components_of_type(component_type)
             .iter()
             .map(|component| {
-                self.component_manager
+                data_manager
+                    .component_manager
                     .get_component(*component)
                     .component_data
                     .vertex_data(
@@ -89,7 +89,7 @@ impl<'a> DrawingSystem<'a> {
                             self.renderer.physical_size.width as f32,
                             self.renderer.physical_size.height as f32,
                         )),
-                        self.data_manager,
+                        data_manager,
                     )
                     .unwrap()
             })
@@ -97,14 +97,14 @@ impl<'a> DrawingSystem<'a> {
     }
 
     /// Collects all drawable [`Component`]s and sends them to the [`Renderer`] to be drawn.
-    pub fn draw_frame(&mut self) {
+    pub fn draw_frame(&mut self, data_manager: &DataManager) {
         let types = vec![ComponentType::Quad, ComponentType::Animation2D];
         let mut quad_vertices = vec![];
         let mut quad_counts = vec![];
 
         // Collect all vertices into a single Vec and count the quads of each type.
         for component_type in types {
-            let new_vertices = self.get_vertex_data_for_type(component_type);
+            let new_vertices = self.get_vertex_data_for_type(component_type, data_manager);
             quad_counts.push(new_vertices.len());
             quad_vertices.extend(new_vertices);
         }
@@ -225,14 +225,14 @@ impl ComponentData {
                 let frame_size = spritesheet.frame_size;
                 let animation = &animations[*current_animation];
 
-                let current_frame = time::calculate_frame(
+                let current_frame = animation.frames[time::calculate_frame(
                     *start_time,
                     animation.frames.len(),
                     animation.frame_length,
-                );
+                )];
                 let frame_uv = glm::vec2(
-                    ((current_frame % spritesheet.pitch as usize) * frame_size.x as usize) as f32,
-                    ((current_frame / spritesheet.pitch as usize) * frame_size.y as usize) as f32,
+                    f32::from((current_frame % spritesheet.pitch) * frame_size.x as u16),
+                    f32::from((current_frame / spritesheet.pitch) * frame_size.y as u16),
                 );
                 let uv_offset = glm::translation2d(&frame_uv)
                     * glm::translation2d(&glm::vec2(
@@ -245,7 +245,6 @@ impl ComponentData {
                         (data_manager.resource_manager.textures[*texture_index]
                             .normalization_matrix
                             * uv_offset
-                            //* self.scaling_matrix() // DELETE?
                             * glm::scaling2d(&glm::vec2(frame_size.x, frame_size.y))
                             * glm::vec3(uv[0], uv[1], uv[2]))
                         .xy()

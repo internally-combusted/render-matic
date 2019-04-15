@@ -18,6 +18,10 @@ components:
           translation: [-400.0, 0.0]
           scaling: [500.0, 5.0]
           rotation: -1.14
+        movement:
+          delta_rotation: 0.3
+          delta_scale: [0.0, 0.0]
+          delta_translate: [0.0, 0.0]
   - id: 1
     component_type: Animation2D
     component_data:
@@ -34,6 +38,10 @@ components:
           translation: [400.0, 0.0]
           scaling: [200.0, 170.0]
           rotation: 17.0
+        movement:
+          delta_rotation: -0.3
+          delta_scale: [0.0, 0.0]
+          delta_translate: [0.0, 0.0]
   - id: 2
     component_type: Animation2D
     component_data:
@@ -43,13 +51,17 @@ components:
         layer: 0
         current_animation: 0
         animations:
-          - frames: [0, 1, 2]
+          - frames: [2, 0, 1]
             animation_type: Loop
             frame_length: 1000
         transform_data:
           translation: [0.0, -300.0]
           scaling: [10.0, 100.0]
           rotation: 4.0
+        movement:
+          delta_rotation: 0.1
+          delta_scale: [0.0, 0.0]
+          delta_translate: [2.0, 2.0]
   - id: 3
     component_type: Animation2D
     component_data:
@@ -59,13 +71,17 @@ components:
         layer: 0
         current_animation: 0
         animations:
-          - frames: [2, 1, 0, 1, 2]
+          - frames: [2]
             animation_type: Loop
             frame_length: 1000
         transform_data:
           translation: [0.0, 300.0]
           scaling: [100.0, 100.0]
-          rotation: 7.333                              
+          rotation: 7.333 
+        movement:
+          delta_rotation: -0.1
+          delta_scale: [0.0, 0.0]
+          delta_translate: [-2.0, -2.0]                            
   - id: 4
     component_type: Quad
     component_data:
